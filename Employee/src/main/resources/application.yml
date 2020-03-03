@@ -1,0 +1,46 @@
+server:
+  port: 9000    #default port where the service will be started
+  
+  
+  
+eureka:         #tells about the Eureka server details and its refresh time
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      ## for local setup
+      #defaultZone: http://127.0.0.1:8761/eureka/
+      ##for docker setup
+      defaultZone: http://employee_eureka-registry-service_1:8761/eureka/
+      
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+      
+spring:     
+  application:
+    name: employee-service   #current service name to be used by the eureka server  
+  datasource:
+      ##for docker profile
+      url: jdbc:mysql://employee_mysql-service_1:3306/employee
+      username: noor
+      password: password
+      ##for local use 
+      #url: jdbc:mysql://localhost:3306/employee
+      #username: root
+      #password: Cutie254$
+  jpa:
+   database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+   show-sql: false
+   hibernate:
+         ddl-auto: update 
+    
+management:
+  security:
+    enabled: false  #disable the spring security on the management endpoints like /env, /refresh etc.   
+    
+logging:
+  level:
+    com.example.howtodoinjava: DEBUG          

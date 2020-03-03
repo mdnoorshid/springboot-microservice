@@ -1,0 +1,36 @@
+version: '3'
+services:
+  
+   nginx-service:
+     image: nginx:latest
+     ports:
+       - "440:440"
+  
+   mysql-service:
+     image: mysql:latest
+     environment:
+        MYSQL_DATABASE: 'employee'  
+        MYSQL_USER: 'noor'
+        MYSQL_PASSWORD: 'password'
+        MYSQL_ROOT_PASSWORD: 'password'
+     ports:
+       - "5555:5555"
+   
+   employee-service:
+     image: employee-service-image:latest
+     build:
+       context: ./
+       dockerfile: ./docker/Dockerfile
+     ports:
+       - "9000:9000"
+     depends_on:
+       - eureka-registry-service
+       - mysql-service    
+  
+   eureka-registry-service:
+     image: employee-registry-service:latest
+     hostname: eureka-registry-service
+           
+      
+         
+      

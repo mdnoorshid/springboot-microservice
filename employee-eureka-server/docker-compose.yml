@@ -1,0 +1,10 @@
+version: '3'
+services:
+   eureka-registry-service:
+      image: employee-registry-service:latest
+      build:
+         context: ./
+         dockerfile: ./docker/Dockerfile
+      ports:
+         - "8761:8761"
+           
